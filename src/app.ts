@@ -1,8 +1,6 @@
-import { Game } from './Game'
+import { Game } from './Game.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   const game = new Game()
   game.start()
 })
-
-export { Game }

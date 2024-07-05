@@ -1,25 +1,32 @@
-import { Game } from '../Game'
-import { Player } from '../entities/Player'
-import { Scene } from './Scene'
+import { Player } from '../entities/Player.js'
+import { Game } from '../Game.js'
+import { Scene } from './Scene.js'
 
-export class GameScene extends Scene {
+export class GameScene implements Scene {
+  protected game: Game
   private player: Player
 
   constructor(game: Game) {
-    super(game)
-    this.player = new Player(game, 100, 100)
+    this.game = game
+    this.player = new Player(game, 400, 300)
   }
 
-  update(_deltaTime: number): void {
-    this.player.update()
+  update(deltaTime: number): void {
+    // Pass deltaTime to the player's update method
+    this.player.update(deltaTime)
   }
 
   render(ctx: CanvasRenderingContext2D): void {
-    // Clear the canvas
-    ctx.fillStyle = 'black'
-    ctx.fillRect(0, 0, this.game.getCanvas().width, this.game.getCanvas().height)
+    const canvas = this.game.getCanvas()
 
-    // Render the player
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+    // Draw background
+    ctx.fillStyle = 'green'
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+    // Render player
     this.player.render(ctx)
   }
 }

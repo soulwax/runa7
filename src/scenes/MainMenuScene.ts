@@ -1,18 +1,17 @@
-import { Game } from '../Game'
-import { Scene } from './Scene'
+import { Game } from '../Game.js'
+import { Scene } from './Scene.js'
 
-export class MainMenuScene extends Scene {
+export class MainMenuScene implements Scene {
+  private game: Game
+
   constructor(game: Game) {
-    super(game)
-    window.addEventListener('keydown', this.handleKeyPress.bind(this))
-  }
-
-  handleKeyPress() {
-    this.game.startGame()
+    this.game = game
   }
 
   update(_deltaTime: number): void {
-    // Update logic for main menu (e.g., button hover effects)
+    if (Object.values(this.game.getKeys()).some((key) => key)) {
+      this.game.startGame()
+    }
   }
 
   render(ctx: CanvasRenderingContext2D): void {
