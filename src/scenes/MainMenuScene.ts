@@ -4,6 +4,11 @@ import { Scene } from './Scene'
 export class MainMenuScene extends Scene {
   constructor(game: Game) {
     super(game)
+    window.addEventListener('keydown', this.handleKeyPress.bind(this))
+  }
+
+  handleKeyPress() {
+    this.game.startGame()
   }
 
   update(_deltaTime: number): void {

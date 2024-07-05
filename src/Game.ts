@@ -1,3 +1,4 @@
+import { GameScene } from './scenes/GameScene'
 import { MainMenuScene } from './scenes/MainMenuScene'
 import { Scene } from './scenes/Scene'
 
@@ -6,6 +7,7 @@ export class Game {
   private ctx: CanvasRenderingContext2D
   private currentScene: Scene
   private lastTime: number = 0
+  private keys: { [key: string]: boolean } = {}
 
   constructor() {
     this.canvas = document.getElementById('gameCanvas') as HTMLCanvasElement
@@ -14,6 +16,9 @@ export class Game {
     window.addEventListener('resize', () => this.resizeCanvas())
 
     this.currentScene = new MainMenuScene(this)
+
+    window.addEventListener('keydown', (e) => (this.keys[e.key] = true))
+    window.addEventListener('keyup', (e) => (this.keys[e.key] = false))
   }
 
   private resizeCanvas() {
@@ -54,5 +59,13 @@ export class Game {
 
   getContext() {
     return this.ctx
+  }
+
+  getKeys() {
+    return this.keys
+  }
+
+  startGame() {
+    this.changeScene(new GameScene(this))
   }
 }
